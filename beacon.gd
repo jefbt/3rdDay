@@ -7,6 +7,7 @@ class_name Beacon extends Area2D
 @onready var pitch_timer: Timer = $PitchTimer
 @onready var unlock_sfx: AudioStreamPlayer2D = $UnlockSFX
 
+@export var ghosts: Array[CreatureGhoul]
 @export var blockers: Array[Blocker]
 @export var spawners: Array[CreatureSpawner]
 @export var load_speed: float = 0.15
@@ -91,6 +92,8 @@ func enlight(again: bool = false) -> void:
 		b.remove_blocker()
 	for s in spawners:
 		s.destroy()
+	for g in ghosts:
+		g.queue_free()
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Player:

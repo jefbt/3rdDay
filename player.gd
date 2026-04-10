@@ -90,6 +90,8 @@ func take_damage(creature: CreatureGhoul, damage: float = 0) -> void:
 	health = clamp(health, 0, max_health)
 	invincible_timer.start(invincible_time)
 	if health <= 0.0:
+		walk_sfx.stop()
+		step_timer.stop()
 		audio_player_2.play()
 		respawning()
 	else:
@@ -129,6 +131,7 @@ func palm_light() -> void:
 	pass
 
 func collect(_collectible: Collectible) -> void:
+	GameManagerGlobal.collect()
 	collectibles += 1
 	collectible_sfx.play()
 	#print("You got " + str(collectible))

@@ -5,7 +5,7 @@
 
 [node name="GameManager" type="Node" unique_id=925633902]
 script = ExtResource("1_70yv6")
-levels = Array[String](["res://main.tscn", "res://level1.tscn"])
+levels = Array[String](["res://main.tscn", "res://level1.tscn", "res://level2.tscn", "res://credits.tscn"])
 
 [node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1703675439]
 stream = ExtResource("2_smx3j")

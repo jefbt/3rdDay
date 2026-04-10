@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://cp3s7jcshlmvu"]
+
+[ext_resource type="Script" uid="uid://2xm10yd54vc5" path="res://creature_ghoul.gd" id="1_qcljq"]
+[ext_resource type="Texture2D" uid="uid://cbbb7t8vamssi" path="res://Characters.png" id="2_irv70"]
+[ext_resource type="AudioStream" uid="uid://b7skvn8x6deux" path="res://minimize_008.ogg" id="3_30c3l"]
+[ext_resource type="AudioStream" uid="uid://6of2d1yvfj5q" path="res://glitch_001.ogg" id="4_6tjjw"]
+[ext_resource type="AudioStream" uid="uid://cvsea2bpvero4" path="res://glass_004.ogg" id="5_ndr0n"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5kq6d"]
+radius = 6.0
+
+[node name="CreatureGhost" type="CharacterBody2D" unique_id=1849647664]
+z_index = 25
+collision_layer = 8
+collision_mask = 6
+motion_mode = 1
+script = ExtResource("1_qcljq")
+is_ghost = true
+speed = 40.0
+damage = 1.2
+follow_range = 170.0
+run_away_duration = 0.7
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2089376707]
+modulate = Color(1, 1, 1, 0.72156864)
+position = Vector2(-2, 0)
+rotation = -1.5707964
+texture = ExtResource("2_irv70")
+hframes = 5
+vframes = 5
+frame = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=804380045]
+shape = SubResource("CircleShape2D_5kq6d")
+
+[node name="RunAwayTimer" type="Timer" parent="." unique_id=449319614]
+one_shot = true
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1236569629]
+stream = ExtResource("3_30c3l")
+volume_db = -6.473
+
+[node name="Step" type="AudioStreamPlayer2D" parent="." unique_id=735800478]
+stream = ExtResource("4_6tjjw")
+volume_db = -38.407
+pitch_scale = 0.72
+max_distance = 1038.0
+
+[node name="RunAwayPlayer" type="AudioStreamPlayer2D" parent="." unique_id=492643653]
+stream = ExtResource("5_ndr0n")
+volume_db = -30.208
+pitch_scale = 0.72
+max_distance = 1038.0
+
+[node name="Timer" type="Timer" parent="." unique_id=171075952]
+wait_time = 0.3
+one_shot = true
+
+[node name="StepTimer" type="Timer" parent="." unique_id=438126762]
+wait_time = 0.33
+
+[connection signal="timeout" from="RunAwayTimer" to="." method="_on_run_away_timer_timeout"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="StepTimer" to="." method="_on_step_timer_timeout"]

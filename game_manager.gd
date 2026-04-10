@@ -9,8 +9,24 @@ var last_beacon: int = -1
 var last_beacon_position: Vector2 = Vector2.ZERO
 var game_state: int = 0
 
+var collectibles: int = 0
+
 var player: Player
 var target_player_position: Vector2 = Vector2.ZERO
+
+func restart_game() -> void:
+	player = null
+	collectibles = 0
+	game_state = 0
+	last_beacon = -1
+	unloacked_beacons = []
+	last_beacon_position = Vector2.ZERO
+	target_player_position = Vector2.ZERO
+	teleport(0,Vector2.ZERO)
+	
+func collect() -> void:
+	collectibles += 1
+	pass
 
 func teleport(level: int, pos: Vector2) -> void:
 	load(levels[level])
@@ -20,7 +36,7 @@ func teleport(level: int, pos: Vector2) -> void:
 	player = null
 
 func _process(_delta: float) -> void:
-	if game_state == 0 and get_tree().current_scene.name != "main.tscn":
+	if game_state == 0 and get_tree().current_scene and get_tree().current_scene.name != "Main":
 		start_game()
 	if not player:
 		player = get_tree().get_first_node_in_group("players")

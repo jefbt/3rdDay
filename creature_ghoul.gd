@@ -1,5 +1,6 @@
 class_name CreatureGhoul extends CharacterBody2D
 
+@export var is_ghost: bool = false
 @export var health: float = 1.5
 @export var speed: float = 50.0
 @export var damage: float = 1.0
@@ -30,7 +31,7 @@ func _ready() -> void:
 	exit_light.connect(_on_exit_light)
 
 func take_damage(_damage: float) -> void:
-	if is_dead:
+	if is_dead or is_ghost:
 		return
 	# TODO make blinking or other visual/sfx feedback
 	health -= _damage
@@ -40,8 +41,8 @@ func take_damage(_damage: float) -> void:
 		audio.play()
 		timer.start()
 		is_dead = true
-		call_deferred("sprite.visible", false)
-		call_deferred("shape.disabled", false)
+		sprite.visible = false
+		shape.disabled = true
 	pass
 
 func _process(delta: float) -> void:
@@ -79,9 +80,13 @@ func follow_player(_delta: float) -> void:
 func _on_enter_light(light: Area2D) -> void:
 	if is_dead:
 		return
-	look_at(-light.global_position)
+	if player:
+		look_at(-player.global_position)
+		run_away_direction = (global_position - player.global_position).normalized()
+	else:
+		look_at(-light.global_position)
+		run_away_direction = (global_position - light.global_position).normalized()
 	is_running_away = true
-	run_away_direction = (global_position - light.global_position).normalized()
 	run_away_player.play()
 	pass
 

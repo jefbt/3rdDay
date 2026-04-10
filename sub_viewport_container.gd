@@ -1,7 +1,7 @@
 extends SubViewportContainer
 
 @export var wait_time: float = 2
-@onready var label_2: Label = $SubViewport/Control/ColorRect/Label2
+@onready var label_2: Label = $SubViewport/Control/ColorRect/Label3
 
 func _ready() -> void:
 	visible = true
