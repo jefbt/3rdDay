@@ -361,7 +361,7 @@ position = Vector2(2064, -80)
 metadata/_edit_group_ = true
 
 [node name="Spike14" parent="Damage" unique_id=362785263 instance=ExtResource("4_3l65w")]
-position = Vector2(2048, -416)
+position = Vector2(2048, -336)
 metadata/_edit_group_ = true
 
 [node name="CreatureSpawners" type="Node" parent="." unique_id=1553001832]
