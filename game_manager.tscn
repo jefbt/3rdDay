@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bcevfwws81qlr"]
+
+[ext_resource type="Script" uid="uid://buf08xpiyrl0m" path="res://game_manager.gd" id="1_70yv6"]
+[ext_resource type="AudioStream" uid="uid://bbwxex1ventff" path="res://Heavenly Loop.ogg" id="2_smx3j"]
+
+[node name="GameManager" type="Node" unique_id=925633902]
+script = ExtResource("1_70yv6")
+levels = Array[String](["res://main.tscn", "res://level1.tscn"])
+
+[node name="MusicPlayer" type="AudioStreamPlayer" parent="." unique_id=1703675439]
+stream = ExtResource("2_smx3j")
+volume_db = -18.123
+pitch_scale = 0.65
+autoplay = true

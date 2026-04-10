@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://c3uvpqgs5xhfq"]
+
+[ext_resource type="Script" uid="uid://pc4x6pn5yolo" path="res://beacon.gd" id="1_1kq3a"]
+[ext_resource type="Texture2D" uid="uid://bg3jlnm4qxjpu" path="res://Light.png" id="1_vstb5"]
+[ext_resource type="AudioStream" uid="uid://dt7ewq3180xiv" path="res://drop_004.ogg" id="3_rp58b"]
+[ext_resource type="AudioStream" uid="uid://mwqduelyqbk6" path="res://confirmation_002.ogg" id="4_24p2l"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1kq3a"]
+radius = 35.014282
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rp58b"]
+radius = 166.0
+
+[node name="Beacon" type="Area2D" unique_id=337451088]
+collision_layer = 4
+collision_mask = 10
+script = ExtResource("1_1kq3a")
+
+[node name="Place" type="Sprite2D" parent="." unique_id=746396411]
+modulate = Color(0.9757435, 0.8061245, 0.6765991, 1)
+scale = Vector2(0.33, 0.33)
+texture = ExtResource("1_vstb5")
+
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=1007566502]
+scale = Vector2(1.3, 1.3)
+enabled = false
+energy = 0.75
+texture = ExtResource("1_vstb5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=781826024]
+shape = SubResource("CircleShape2D_1kq3a")
+
+[node name="LightRangeArea" type="Area2D" parent="." unique_id=983985366]
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LightRangeArea" unique_id=1726870137]
+shape = SubResource("CircleShape2D_rp58b")
+
+[node name="ProgressionLabel" type="Label" parent="." unique_id=920211176]
+z_index = 21
+offset_left = -43.0
+offset_top = -12.0
+offset_right = 41.0
+offset_bottom = 11.0
+text = "00.0%"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RaiseSFX" type="AudioStreamPlayer2D" parent="." unique_id=331672378]
+stream = ExtResource("3_rp58b")
+
+[node name="UnlockSFX" type="AudioStreamPlayer2D" parent="." unique_id=987298779]
+stream = ExtResource("4_24p2l")
+volume_db = 1.726
+pitch_scale = 1.17
+
+[node name="PitchTimer" type="Timer" parent="." unique_id=1657289866]
+wait_time = 0.5
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="body_entered" from="LightRangeArea" to="." method="_on_light_range_area_body_entered"]
+[connection signal="body_exited" from="LightRangeArea" to="." method="_on_light_range_area_body_exited"]
+[connection signal="timeout" from="PitchTimer" to="." method="_on_pitch_timer_timeout"]

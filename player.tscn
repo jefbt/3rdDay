@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://bp2va7pad2hll"]
+
+[ext_resource type="Texture2D" uid="uid://cbbb7t8vamssi" path="res://Characters.png" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://cj7nlmw2kmwpo" path="res://player.gd" id="1_onrkg"]
+[ext_resource type="AudioStream" uid="uid://dtgq1qx8hp3n6" path="res://slightscream-04.ogg" id="3_i3pqv"]
+[ext_resource type="AudioStream" uid="uid://c8af1p8vyyos2" path="res://slightscream-15.ogg" id="4_hqtel"]
+[ext_resource type="AudioStream" uid="uid://b602emngacetb" path="res://maximize_006.ogg" id="5_sweqy"]
+[ext_resource type="AudioStream" uid="uid://nis8e4h8me8f" path="res://error_004.ogg" id="6_2hs0m"]
+[ext_resource type="AudioStream" uid="uid://beq6ion6kyg76" path="res://confirmation_004.ogg" id="7_1jxqw"]
+[ext_resource type="AudioStream" uid="uid://71nt4b5e8ka5" path="res://click_002.ogg" id="8_dw050"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_onrkg"]
+radius = 5.0
+
+[node name="Player" type="CharacterBody2D" unique_id=2089562854 groups=["players"]]
+z_index = 10
+collision_layer = 2
+collision_mask = 25
+script = ExtResource("1_onrkg")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1551109463]
+position = Vector2(-4, 0)
+rotation = -1.5707964
+texture = ExtResource("1_4flbx")
+hframes = 5
+vframes = 5
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1258860107]
+shape = SubResource("CircleShape2D_onrkg")
+
+[node name="PalmTimer" type="Timer" parent="." unique_id=1353587772]
+one_shot = true
+
+[node name="InvincibleTimer" type="Timer" parent="." unique_id=1767055436]
+one_shot = true
+
+[node name="RespawnTimer" type="Timer" parent="." unique_id=795771205]
+one_shot = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1103983025]
+stream = ExtResource("3_i3pqv")
+volume_db = -8.405
+
+[node name="AudioStreamPlayer2" type="AudioStreamPlayer" parent="." unique_id=1215994006]
+stream = ExtResource("4_hqtel")
+
+[node name="PalmLightSFX" type="AudioStreamPlayer" parent="." unique_id=140615512]
+stream = ExtResource("5_sweqy")
+
+[node name="PalmLightErrorSFX" type="AudioStreamPlayer" parent="." unique_id=350190788]
+stream = ExtResource("6_2hs0m")
+
+[node name="AudioListener2D" type="AudioListener2D" parent="." unique_id=1046027106]
+current = true
+
+[node name="CollectibleSFX" type="AudioStreamPlayer2D" parent="." unique_id=2095066603]
+stream = ExtResource("7_1jxqw")
+
+[node name="WalkSFX" type="AudioStreamPlayer2D" parent="." unique_id=904058165]
+stream = ExtResource("8_dw050")
+volume_db = -15.104
+pitch_scale = 0.62
+
+[node name="StepTimer" type="Timer" parent="." unique_id=1084797096]
+wait_time = 0.33
+
+[connection signal="timeout" from="PalmTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="InvincibleTimer" to="." method="_on_invincible_timer_timeout"]
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_respawn_timer_timeout"]
+[connection signal="timeout" from="StepTimer" to="." method="_on_step_timer_timeout"]

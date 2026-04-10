@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://ceeuo83j71hs"]
+
+[ext_resource type="Texture2D" uid="uid://c8q02ip5e3amd" path="res://MiddleTopLayer.png" id="1_bpkmp"]
+[ext_resource type="Script" uid="uid://d4bnyw7edtq8q" path="res://blocker.gd" id="1_cuc80"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cuc80"]
+size = Vector2(16, 32)
+
+[node name="blocker" type="StaticBody2D" unique_id=776297547]
+z_index = 3
+collision_mask = 10
+script = ExtResource("1_cuc80")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1311549399]
+position = Vector2(8, 16)
+shape = SubResource("RectangleShape2D_cuc80")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1404239687]
+position = Vector2(0, 16)
+texture = ExtResource("1_bpkmp")
+offset = Vector2(8, 0)
+region_enabled = true
+region_rect = Rect2(128, 32, 16, 32)
