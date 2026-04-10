@@ -40,8 +40,8 @@ func take_damage(_damage: float) -> void:
 		audio.play()
 		timer.start()
 		is_dead = true
-		sprite.visible = false
-		shape.disabled = true
+		call_deferred("sprite.visible", false)
+		call_deferred("shape.disabled", false)
 	pass
 
 func _process(delta: float) -> void:

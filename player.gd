@@ -94,7 +94,6 @@ func take_damage(creature: CreatureGhoul, damage: float = 0) -> void:
 		respawning()
 	else:
 		audio_player.play()
-		
 	
 func check_damage_collisions() -> void:
 	if is_invincible or is_respawning:
@@ -134,19 +133,15 @@ func collect(_collectible: Collectible) -> void:
 	collectible_sfx.play()
 	#print("You got " + str(collectible))
 	#print("You have " + str(collectibles) + " collectibles")
-	pass
 
 func _on_timer_timeout() -> void:
 	can_palm_light = true
 
-
 func _on_invincible_timer_timeout() -> void:
 	is_invincible = false
 
-
 func _on_respawn_timer_timeout() -> void:
 	respawn()
-
 
 func _on_step_timer_timeout() -> void:
 	if not walk_sfx.playing:
